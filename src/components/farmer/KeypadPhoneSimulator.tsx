@@ -356,6 +356,19 @@ export const KeypadPhoneSimulator: React.FC = () => {
         <div className="text-[9px] text-stone-400 font-mono tracking-widest uppercase">
           Mitti2Market • Rural IVR Telecom Terminal
         </div>
+
+        {/* Interactive Instant Test Call Trigger for Evaluator */}
+        <button
+          type="button"
+          onClick={() => {
+            setCallState('IN_CALL');
+            handleAnswerCall();
+          }}
+          className="w-full py-2 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[11px] font-bold flex items-center justify-center gap-1.5 transition cursor-pointer"
+        >
+          <Volume2 className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+          <span>🔊 Play Live {isGujarati ? 'Gujarati' : 'Hindi'} Voice Call Audio</span>
+        </button>
       </div>
     </div>
   );

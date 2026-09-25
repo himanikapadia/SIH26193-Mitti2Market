@@ -119,7 +119,7 @@ interface DemoContextType {
 const DemoContext = createContext<DemoContextType | undefined>(undefined);
 
 export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [activeTab, setActiveTab] = useState<ModuleTab>('buyer');
+  const [activeTab, setActiveTab] = useState<ModuleTab>('processor');
   const [demoSpeed, setDemoSpeed] = useState<DemoSpeed>('Normal');
   const [isAutoDemoRunning, setIsAutoDemoRunning] = useState<boolean>(false);
 

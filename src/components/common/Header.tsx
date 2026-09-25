@@ -33,35 +33,35 @@ export const Header: React.FC = () => {
 
   const tabs: { id: ModuleTab; label: string; icon: React.ReactNode; badge?: number; color: string }[] = [
     {
+      id: 'processor',
+      label: 'Agro-Processing & Produce Lifecycle',
+      icon: <Factory className="w-4 h-4" />,
+      badge: 4,
+      color: 'amber'
+    },
+    {
+      id: 'farmer',
+      label: 'Farmer Dual-Stream & Vernacular Voice',
+      icon: <Sprout className="w-4 h-4" />,
+      badge: pendingFarmerActions || undefined,
+      color: 'emerald'
+    },
+    {
+      id: 'logistics',
+      label: 'Cold-Chain & Dual Logistics',
+      icon: <Truck className="w-4 h-4" />,
+      badge: activePickupStops || undefined,
+      color: 'amber'
+    },
+    {
       id: 'buyer',
-      label: 'Fresh Buyer Portal',
+      label: 'Factory & Retail Procurement',
       icon: <ShoppingBag className="w-4 h-4" />,
       color: 'blue'
     },
     {
-      id: 'farmer',
-      label: 'Farmer Module',
-      icon: <Sprout className="w-4 h-4" />,
-      badge: pendingFarmerActions,
-      color: 'emerald'
-    },
-    {
-      id: 'processor',
-      label: 'Agro-Processing & Value Addition',
-      icon: <Factory className="w-4 h-4" />,
-      badge: 3,
-      color: 'amber'
-    },
-    {
-      id: 'logistics',
-      label: 'Logistics & Dual-Stream Route',
-      icon: <Truck className="w-4 h-4" />,
-      badge: activePickupStops,
-      color: 'amber'
-    },
-    {
       id: 'admin',
-      label: 'Admin Console',
+      label: 'SIH26193 Architecture & Escrow',
       icon: <Layers className="w-4 h-4" />,
       color: 'purple'
     }
