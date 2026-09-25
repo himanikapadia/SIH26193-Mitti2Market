@@ -17,7 +17,12 @@ import {
   FileText,
   Building2,
   RefreshCw,
-  Scale
+  Scale,
+  Camera,
+  Sun,
+  ShieldAlert,
+  Recycle,
+  Zap
 } from 'lucide-react';
 import {
   INITIAL_PROCESSOR_DEMANDS,
@@ -26,14 +31,19 @@ import {
   ValueAddConversionMetric
 } from '../../data/processorData';
 import { FoodProcessorDemand, ProduceLifecycleItem } from '../../types';
+import { OpticalBrixScannerModal } from './OpticalBrixScannerModal';
+import { PulpOnWheelsSimulator } from './PulpOnWheelsSimulator';
+import { MandiCrashHedgingCard } from './MandiCrashHedgingCard';
+import { TripleStreamCircularEconomy } from './TripleStreamCircularEconomy';
 
 export const AgroProcessorPortal: React.FC = () => {
-  const [activeSubTab, setActiveSubTab] = useState<'lifecycle' | 'processors' | 'calculator'>('processors');
+  const [activeSubTab, setActiveSubTab] = useState<'innovations' | 'processors' | 'lifecycle' | 'pulp' | 'calculator'>('innovations');
   const [processorDemands, setProcessorDemands] = useState<FoodProcessorDemand[]>(INITIAL_PROCESSOR_DEMANDS);
   const [lifecycleItems, setLifecycleItems] = useState<ProduceLifecycleItem[]>(INITIAL_PRODUCE_LIFECYCLE);
   const [selectedCropCalc, setSelectedCropCalc] = useState<string>('Tomato');
   const [calcQuantityKg, setCalcQuantityKg] = useState<number>(2500);
   const [selectedBatchQR, setSelectedBatchQR] = useState<ProduceLifecycleItem | null>(null);
+  const [isBrixScannerOpen, setIsBrixScannerOpen] = useState<boolean>(false);
 
   // Quick Stats
   const totalProduceManagedKg = lifecycleItems.reduce((acc, i) => acc + i.allocatedVolumeKg, 0);
@@ -43,7 +53,6 @@ export const AgroProcessorPortal: React.FC = () => {
   const freshAllocatedKg = lifecycleItems
     .filter((i) => i.allocatedStream.includes('Fresh Table'))
     .reduce((acc, i) => acc + i.allocatedVolumeKg, 0);
-  const spoilageAvertedPercent = Math.round((processedAllocatedKg / totalProduceManagedKg) * 100);
 
   // Trigger auto-allocation to processing for critical shelf-life batch
   const handleAutoReallocateToProcessing = (batchId: string) => {
@@ -71,7 +80,7 @@ export const AgroProcessorPortal: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* SIH26193 Top Problem Statement Announcement Banner */}
+      {/* SIH26193 Top Banner */}
       <div className="bg-gradient-to-r from-amber-700 via-amber-800 to-emerald-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
         <div className="absolute right-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
         
@@ -85,25 +94,60 @@ export const AgroProcessorPortal: React.FC = () => {
               Produce Lifecycle Management &amp; Agro-Processing Hub
             </h1>
             <p className="text-sm sm:text-base text-amber-100 font-medium leading-relaxed">
-              Enhancing Indian Agriculture by managing farm shelf-life, preventing post-harvest distress dumping, and routing Grade B &amp; surplus produce directly to Food Processing Units (FPUs) for high-margin value addition.
+              Enhancing Indian Agriculture through 4 Out-of-the-Box Innovations: Optical AI Camera Brix Grading, Decentralized "Pulp-on-Wheels" Solar Processing, Pre-Harvest Mandi Crash Hedging, and Triple-Stream Zero-Waste Monetization.
             </p>
           </div>
 
-          {/* Quick Metrics Badge */}
-          <div className="grid grid-cols-2 gap-3 w-full lg:w-auto shrink-0">
-            <div className="bg-black/25 backdrop-blur-md border border-white/10 rounded-2xl p-4 text-center">
-              <div className="text-2xl font-black text-amber-300">{totalProduceManagedKg.toLocaleString()} kg</div>
-              <div className="text-[11px] text-stone-300 font-semibold uppercase tracking-wider">Total Managed</div>
-            </div>
-            <div className="bg-black/25 backdrop-blur-md border border-white/10 rounded-2xl p-4 text-center">
-              <div className="text-2xl font-black text-emerald-400">0% Dumped</div>
-              <div className="text-[11px] text-stone-300 font-semibold uppercase tracking-wider">Zero Spoilage Waste</div>
+          {/* Quick Action: Open AI Camera Refractometer */}
+          <div className="w-full lg:w-auto shrink-0 flex flex-col gap-2">
+            <button
+              onClick={() => setIsBrixScannerOpen(true)}
+              className="px-5 py-3.5 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Camera className="w-4 h-4 text-slate-900" />
+              <span>Test AI Optical Brix Scanner</span>
+              <span className="bg-slate-950 text-white px-2 py-0.5 rounded-full text-[10px] font-mono">
+                Live Cam
+              </span>
+            </button>
+            <div className="text-[10px] text-amber-200/80 text-center font-medium">
+              Zero-Hardware Refractometer via Phone Camera
             </div>
           </div>
         </div>
 
-        {/* 3 Main View Switcher Tabs */}
+        {/* 5 Main Sub-Tabs */}
         <div className="mt-8 flex flex-wrap gap-2 border-t border-white/15 pt-6">
+          <button
+            onClick={() => setActiveSubTab('innovations')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
+              activeSubTab === 'innovations'
+                ? 'bg-white text-slate-900 shadow-md'
+                : 'bg-white/10 hover:bg-white/20 text-white'
+            }`}
+          >
+            <Sparkles className="w-4 h-4 text-amber-600" />
+            <span>4 Unique Innovations</span>
+            <span className="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-black">
+              Hatke Solutions
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('pulp')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
+              activeSubTab === 'pulp'
+                ? 'bg-white text-slate-900 shadow-md'
+                : 'bg-white/10 hover:bg-white/20 text-white'
+            }`}
+          >
+            <Sun className="w-4 h-4 text-amber-500" />
+            <span>Pulp-on-Wheels Simulator</span>
+            <span className="px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[10px] font-black">
+              -80% Freight
+            </span>
+          </button>
+
           <button
             onClick={() => setActiveSubTab('processors')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer ${
@@ -128,7 +172,7 @@ export const AgroProcessorPortal: React.FC = () => {
             }`}
           >
             <Clock className="w-4 h-4 text-emerald-600" />
-            <span>Produce Shelf-Life &amp; Storage Tracker</span>
+            <span>Shelf-Life &amp; Storage Tracker</span>
             <span className="px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[10px] font-black">
               {lifecycleItems.length} Batches
             </span>
@@ -143,20 +187,89 @@ export const AgroProcessorPortal: React.FC = () => {
             }`}
           >
             <TrendingUp className="w-4 h-4 text-purple-600" />
-            <span>Value-Addition Yield Calculator</span>
-            <span className="px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-900 text-[10px] font-black">
-              +224% Value
-            </span>
+            <span>Value Multiplier (+224%)</span>
           </button>
         </div>
       </div>
 
       {/* ========================================================================= */}
-      {/* SUB-TAB 1: FOOD PROCESSOR UNITS (FPUs)                                  */}
+      {/* SUB-TAB: 4 UNIQUE INNOVATIONS SHOWCASE                                  */}
+      {/* ========================================================================= */}
+      {activeSubTab === 'innovations' && (
+        <div className="space-y-6">
+          {/* Quick Launchpad Cards for Evaluators */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            {/* Card 1: Optical Brix Scanner */}
+            <div className="bg-white border-2 border-stone-200 hover:border-amber-400 rounded-3xl p-6 shadow-xs space-y-3 flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+                    🔬
+                  </div>
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-extrabold text-[10px] uppercase">
+                    Innovation #1
+                  </span>
+                </div>
+                <h4 className="font-extrabold text-base text-slate-900">AI Optical Brix &amp; Ripeness Scanner</h4>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Eliminates ₹25,000 digital refractometers! Evaluates produce sugar density (Brix score) and internal degradation using standard smartphone cameras and multi-spectral hue analysis.
+                </p>
+              </div>
+              <button
+                onClick={() => setIsBrixScannerOpen(true)}
+                className="w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Camera className="w-4 h-4" />
+                <span>Launch Camera Scanner Simulator</span>
+              </button>
+            </div>
+
+            {/* Card 2: Pulp-on-Wheels */}
+            <div className="bg-white border-2 border-stone-200 hover:border-emerald-400 rounded-3xl p-6 shadow-xs space-y-3 flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+                    🚚
+                  </div>
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-extrabold text-[10px] uppercase">
+                    Innovation #2
+                  </span>
+                </div>
+                <h4 className="font-extrabold text-base text-slate-900">"Pulp-on-Wheels" Solar Micro-Processing Van</h4>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  90% of raw tomato is water. Our mobile solar pulping van crushes 1,000kg tomatoes into 200kg aseptic paste at the village cluster, cutting freight weight by 80% and keeping irrigation water in the village!
+                </p>
+              </div>
+              <button
+                onClick={() => setActiveSubTab('pulp')}
+                className="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Sun className="w-4 h-4" />
+                <span>Simulate 80% Freight Cut</span>
+              </button>
+            </div>
+
+          </div>
+
+          {/* Embedded Innovation #3: Mandi Crash Hedging */}
+          <MandiCrashHedgingCard />
+
+          {/* Embedded Innovation #4: Triple-Stream Zero Waste */}
+          <TripleStreamCircularEconomy />
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* SUB-TAB: PULP-ON-WHEELS SIMULATOR                                        */}
+      {/* ========================================================================= */}
+      {activeSubTab === 'pulp' && <PulpOnWheelsSimulator />}
+
+      {/* ========================================================================= */}
+      {/* SUB-TAB: FOOD PROCESSOR UNITS (FPUs)                                     */}
       {/* ========================================================================= */}
       {activeSubTab === 'processors' && (
         <div className="space-y-6">
-          {/* Header Explanation */}
           <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -175,7 +288,6 @@ export const AgroProcessorPortal: React.FC = () => {
             </div>
           </div>
 
-          {/* Processor Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {processorDemands.map((fpu) => {
               const fillPercent = Math.round((fpu.currentAllocatedKg / fpu.targetVolumeKg) * 100);
@@ -201,7 +313,6 @@ export const AgroProcessorPortal: React.FC = () => {
                       </p>
                     </div>
 
-                    {/* Target Product Badge */}
                     <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 space-y-1.5">
                       <div className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">
                         Processing Product Target
@@ -217,7 +328,6 @@ export const AgroProcessorPortal: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Progress Bar */}
                     <div className="space-y-1.5">
                       <div className="flex justify-between text-xs font-bold text-stone-600">
                         <span>Pooled: {fpu.currentAllocatedKg.toLocaleString()} kg</span>
@@ -245,43 +355,14 @@ export const AgroProcessorPortal: React.FC = () => {
               );
             })}
           </div>
-
-          {/* Dual-Stream Allocation Explanation Banner */}
-          <div className="bg-gradient-to-r from-emerald-50 to-amber-50 border border-emerald-200 rounded-2xl p-6">
-            <h3 className="font-extrabold text-slate-900 text-base flex items-center gap-2">
-              <Boxes className="w-5 h-5 text-emerald-700" />
-              How Mitti2Market Eliminates 100% Post-Harvest Dumping in Bharat
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-xs text-stone-700">
-              <div className="bg-white p-4 rounded-xl border border-emerald-100 shadow-xs space-y-1.5">
-                <span className="font-bold text-emerald-800 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  Stream 1: Grade A Fresh Produce (Table Wholesalers)
-                </span>
-                <p className="text-stone-600 leading-relaxed">
-                  Prime harvest with high shelf-life is dispatched immediately to bulk retail chains and APMC terminals at premium fresh market prices (₹22.00–₹24.50/kg).
-                </p>
-              </div>
-              <div className="bg-white p-4 rounded-xl border border-amber-100 shadow-xs space-y-1.5">
-                <span className="font-bold text-amber-800 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-amber-600" />
-                  Stream 2: Grade B &amp; Surplus Produce (Food Processors)
-                </span>
-                <p className="text-stone-600 leading-relaxed">
-                  Soft, overripe, or visual-blemish produce is automatically diverted to Food Processing Units for paste, puree, chips, or dehydration at ₹18.50/kg—guaranteeing farmers never dump harvest on highways!
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       )}
 
       {/* ========================================================================= */}
-      {/* SUB-TAB 2: PRODUCE LIFECYCLE & SHELF-LIFE MANAGEMENT                     */}
+      {/* SUB-TAB: PRODUCE LIFECYCLE & SHELF-LIFE MANAGEMENT                       */}
       {/* ========================================================================= */}
       {activeSubTab === 'lifecycle' && (
         <div className="space-y-6">
-          {/* Storage Environment Telemetry Card */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white border border-stone-200 rounded-2xl p-4 shadow-xs flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center">
@@ -317,7 +398,6 @@ export const AgroProcessorPortal: React.FC = () => {
             </div>
           </div>
 
-          {/* Produce Batches Table */}
           <div className="bg-white border border-stone-200 rounded-3xl overflow-hidden shadow-xs">
             <div className="p-5 border-b border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
@@ -348,21 +428,18 @@ export const AgroProcessorPortal: React.FC = () => {
                     const isFresh = item.allocatedStream.includes('Fresh');
                     return (
                       <tr key={item.id} className="hover:bg-stone-50/80 transition">
-                        {/* Batch & Crop */}
                         <td className="py-4 px-4">
                           <div className="font-extrabold text-slate-900 text-xs">{item.cropName}</div>
                           <div className="font-mono text-[10px] text-stone-400">{item.batchCode}</div>
                           <div className="text-[10px] text-stone-500 font-semibold">{item.allocatedVolumeKg} kg</div>
                         </td>
 
-                        {/* Farmer & Origin */}
                         <td className="py-4 px-4">
                           <div className="font-bold text-slate-800">{item.farmerName}</div>
                           <div className="text-stone-400 text-[11px]">{item.village}</div>
                           <div className="text-[10px] text-stone-500">Harvest: {item.harvestDate}</div>
                         </td>
 
-                        {/* Shelf Life */}
                         <td className="py-4 px-4">
                           <div className="flex items-center gap-1.5 font-bold text-slate-900">
                             <Clock className={`w-3.5 h-3.5 ${isCritical ? 'text-rose-600 animate-pulse' : 'text-emerald-600'}`} />
@@ -374,7 +451,6 @@ export const AgroProcessorPortal: React.FC = () => {
                           )}
                         </td>
 
-                        {/* Spoilage Risk Badge */}
                         <td className="py-4 px-4">
                           <span
                             className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold ${
@@ -392,12 +468,10 @@ export const AgroProcessorPortal: React.FC = () => {
                           </span>
                         </td>
 
-                        {/* Storage */}
                         <td className="py-4 px-4 font-medium text-stone-600">
                           {item.currentStorage}
                         </td>
 
-                        {/* Allocated Stream */}
                         <td className="py-4 px-4">
                           <span
                             className={`px-2.5 py-1 rounded-lg text-[10px] font-bold block w-fit ${
@@ -410,7 +484,6 @@ export const AgroProcessorPortal: React.FC = () => {
                           </span>
                         </td>
 
-                        {/* Action Buttons */}
                         <td className="py-4 px-4 text-right space-x-2">
                           {item.spoilageRisk === 'Critical' && item.allocatedStream.includes('Ambient') && (
                             <button
@@ -441,7 +514,7 @@ export const AgroProcessorPortal: React.FC = () => {
       )}
 
       {/* ========================================================================= */}
-      {/* SUB-TAB 3: VALUE-ADDITION YIELD & PROFIT CALCULATOR                      */}
+      {/* SUB-TAB: VALUE-ADDITION YIELD & PROFIT CALCULATOR                        */}
       {/* ========================================================================= */}
       {activeSubTab === 'calculator' && (
         <div className="space-y-6">
@@ -457,7 +530,6 @@ export const AgroProcessorPortal: React.FC = () => {
                 </p>
               </div>
 
-              {/* Crop Selector Buttons */}
               <div className="flex gap-2">
                 {['Tomato', 'Potato', 'Onion'].map((crop) => (
                   <button
@@ -475,7 +547,6 @@ export const AgroProcessorPortal: React.FC = () => {
               </div>
             </div>
 
-            {/* Quantity Slider */}
             <div className="py-6 border-b border-stone-100 space-y-3">
               <div className="flex justify-between items-center">
                 <span className="text-xs font-bold text-slate-700 uppercase tracking-wide">
@@ -501,9 +572,7 @@ export const AgroProcessorPortal: React.FC = () => {
               </div>
             </div>
 
-            {/* Comparison Cards: Raw Distress vs. Processed Value */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
-              {/* Option A: Raw Middlemen Distress Dumping */}
               <div className="bg-rose-50/70 border-2 border-rose-200 rounded-2xl p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="px-2.5 py-1 rounded-full bg-rose-200 text-rose-900 text-[10px] font-black uppercase">
@@ -531,7 +600,6 @@ export const AgroProcessorPortal: React.FC = () => {
                 </div>
               </div>
 
-              {/* Option B: Mitti2Market Food Processing Route */}
               <div className="bg-emerald-50/70 border-2 border-emerald-300 rounded-2xl p-6 space-y-4 shadow-sm">
                 <div className="flex items-center justify-between">
                   <span className="px-2.5 py-1 rounded-full bg-emerald-200 text-emerald-900 text-[10px] font-black uppercase">
@@ -565,24 +633,17 @@ export const AgroProcessorPortal: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* Bottom Summary Callout */}
-            <div className="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-2xl flex items-center justify-between text-xs text-purple-900 font-semibold">
-              <span className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-purple-600" />
-                Processing {calcQuantityKg.toLocaleString()} kg saves 100% of the produce from decay and generates 8 regional micro-processing labor days.
-              </span>
-              <span className="bg-purple-700 text-white px-3 py-1 rounded-xl text-[11px] font-bold">
-                Zero Spoilage Waste
-              </span>
-            </div>
           </div>
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* MODAL: BATCH TRACEABILITY QR CODE                                        */}
-      {/* ========================================================================= */}
+      {/* Optical Brix Scanner Modal */}
+      <OpticalBrixScannerModal
+        isOpen={isBrixScannerOpen}
+        onClose={() => setIsBrixScannerOpen(false)}
+      />
+
+      {/* QR Code Traceability Modal */}
       {selectedBatchQR && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5 animate-in fade-in zoom-in-95">
@@ -599,10 +660,8 @@ export const AgroProcessorPortal: React.FC = () => {
               </button>
             </div>
 
-            {/* Mock QR Code Graphic */}
             <div className="bg-stone-50 border-2 border-dashed border-stone-300 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3 text-center">
               <div className="w-36 h-36 bg-white p-2 rounded-xl shadow-xs border border-stone-200 flex items-center justify-center">
-                {/* SVG QR Code Pattern */}
                 <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900 fill-current">
                   <rect x="0" y="0" width="30" height="30" rx="3" />
                   <rect x="5" y="5" width="20" height="20" fill="#fff" />
@@ -625,7 +684,6 @@ export const AgroProcessorPortal: React.FC = () => {
               <div className="text-[10px] text-stone-500">Scan to verify farm origin &amp; cold-chain temperature integrity</div>
             </div>
 
-            {/* Batch Details */}
             <div className="space-y-2 text-xs">
               <div className="flex justify-between py-1 border-b border-stone-100">
                 <span className="text-stone-500">Crop / Variety:</span>
