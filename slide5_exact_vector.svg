@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <style>
+      .font-sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .slide-title { font-size: 52px; font-weight: 800; fill: #000000; text-anchor: middle; letter-spacing: -0.5px; }
+      .slide-sub { font-size: 25px; font-weight: 500; fill: #1e293b; text-anchor: middle; }
+      .card-rect { fill: #ffffff; stroke: #e2e8f0; stroke-width: 2.5px; rx: 22px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.04)); }
+      .card-title { font-size: 26px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+      .body-bold { font-size: 19px; font-weight: 600; fill: #0f172a; }
+      .body-desc { font-size: 16px; font-weight: 400; fill: #475569; }
+      
+      .pill-green { fill: #0f763e; rx: 34px; }
+      .pill-orange { fill: #c26100; rx: 34px; }
+      .pill-text { font-size: 21px; font-weight: 700; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+      
+      .table-title { font-size: 28px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+      .table-header-bg { fill: #1e2e44; }
+      .th-text { font-size: 20px; font-weight: 700; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+      
+      .status-pill-green { fill: #0f763e; rx: 22px; }
+      .status-pill-amber { fill: #c26100; rx: 22px; }
+      .status-pill-dark { fill: #243447; rx: 22px; }
+      .status-text { font-size: 18px; font-weight: 700; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+      
+      .bottom-ribbon { fill: #0b4f2c; }
+      .ribbon-text { font-size: 28px; font-weight: 800; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; letter-spacing: 0.5px; }
+    </style>
+    
+    <linearGradient id="escrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f763e" />
+      <stop offset="100%" stop-color="#c26100" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c26100" />
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1920" height="1080" fill="#ffffff" />
+
+  <!-- ==================== HEADER SECTION ==================== -->
+  <g id="header-group">
+    <text x="960" y="90" class="font-sans slide-title">FEASIBILITY AND VIABILITY</text>
+    <text x="960" y="140" class="font-sans slide-sub">Ground-Level Operability, Win-Win Unit Economics &amp; Risk Mitigation Matrix</text>
+  </g>
+
+  <!-- ==================== LEFT COLUMN (3 CARDS) ==================== -->
+  <g id="left-column">
+    
+    <!-- CARD 1: TECHNICAL FEASIBILITY -->
+    <g id="card-1-technical" transform="translate(70, 195)">
+      <rect width="840" height="195" class="card-rect" />
+      <text x="420" y="45" class="font-sans card-title">Technical Feasibility</text>
+      
+      <!-- Left: 2G Phone Feature -->
+      <g id="tech-feature-phone" transform="translate(50, 65)">
+        <!-- Phone Icon Vector -->
+        <rect x="15" y="15" width="46" height="74" rx="8" fill="#ffffff" stroke="#0f763e" stroke-width="3" />
+        <rect x="23" y="24" width="30" height="32" rx="3" fill="#e2f5ea" />
+        <circle cx="38" cy="72" r="5" fill="#0f763e" />
+        <path d="M 8 35 Q 2 52 8 68" stroke="#0f763e" stroke-width="3" fill="none" stroke-linecap="round" />
+        <path d="M 68 35 Q 74 52 68 68" stroke="#0f763e" stroke-width="3" fill="none" stroke-linecap="round" />
+        
+        <!-- Text -->
+        <text x="85" y="44" class="font-sans body-bold">2G Feature Phone</text>
+        <text x="85" y="70" class="font-sans body-bold">IVR Voice calls</text>
+      </g>
+      
+      <!-- Right: Algorithmic Pooling Feature -->
+      <g id="tech-knapsack-pooling" transform="translate(470, 65)">
+        <!-- Diagram Vector -->
+        <circle cx="35" cy="20" r="10" fill="#0f763e" />
+        <line x1="35" y1="30" x2="35" y2="48" stroke="#1e293b" stroke-width="2.5" />
+        <line x1="15" y1="48" x2="55" y2="48" stroke="#1e293b" stroke-width="2.5" />
+        <rect x="5" y="48" width="18" height="26" rx="4" fill="#0f763e" />
+        <rect x="26" y="48" width="18" height="26" rx="4" fill="#c26100" />
+        <rect x="47" y="48" width="18" height="26" rx="4" fill="#0f763e" />
+        
+        <!-- Text -->
+        <text x="85" y="44" class="font-sans body-bold">Algorithmic</text>
+        <text x="85" y="70" class="font-sans body-bold">Knapsack pooling</text>
+      </g>
+    </g>
+
+    <!-- CARD 2: FINANCIAL VIABILITY & UNIT ECONOMICS -->
+    <g id="card-2-financial" transform="translate(70, 425)">
+      <rect width="840" height="205" class="card-rect" />
+      <text x="420" y="45" class="font-sans card-title">Financial Viability &amp; Unit Economics</text>
+      
+      <!-- Green Pill: Farmer Income -->
+      <g id="pill-farmer-income" transform="translate(30, 80)">
+        <rect width="375" height="85" class="pill-green" />
+        <text x="187" y="32" class="font-sans pill-text" font-size="20">Farmer Income:</text>
+        <text x="187" y="58" class="font-sans pill-text" font-size="21">₹16 to ₹22/kg (+37.5%)</text>
+      </g>
+      
+      <!-- Orange Pill: Buyer Savings -->
+      <g id="pill-buyer-savings" transform="translate(435, 80)">
+        <rect width="375" height="85" class="pill-orange" />
+        <text x="187" y="32" class="font-sans pill-text" font-size="20">Buyer Savings:</text>
+        <text x="187" y="58" class="font-sans pill-text" font-size="21">₹24.5 to ₹22/kg (-10.2%)</text>
+      </g>
+    </g>
+
+    <!-- CARD 3: REGULATORY & ESCROW -->
+    <g id="card-3-regulatory" transform="translate(70, 665)">
+      <rect width="840" height="200" class="card-rect" />
+      <text x="420" y="45" class="font-sans card-title">Regulatory &amp; Escrow</text>
+      
+      <!-- Bank Icon + 2-Tier Escrow -->
+      <g id="escrow-badge" transform="translate(310, 68)">
+        <!-- Bank Pillar Icon -->
+        <path d="M 15 14 L 30 4 L 45 14 Z" fill="#0f763e" />
+        <rect x="18" y="15" width="4" height="15" fill="#0f763e" />
+        <rect x="28" y="15" width="4" height="15" fill="#0f763e" />
+        <rect x="38" y="15" width="4" height="15" fill="#0f763e" />
+        <rect x="14" y="30" width="32" height="4" fill="#0f763e" />
+        <text x="60" y="24" class="font-sans body-bold" font-size="22">2-tier escrow system</text>
+      </g>
+      
+      <!-- Flow: 70% farm-gate -> 30% delivery settlement -->
+      <g id="escrow-flow" transform="translate(70, 130)">
+        <text x="100" y="22" class="font-sans body-bold" font-size="21" fill="#0f172a" text-anchor="middle">70% farm-gate</text>
+        
+        <!-- Gradient Arrow -->
+        <line x1="220" y1="15" x2="470" y2="15" stroke="url(#escrowGrad)" stroke-width="9" stroke-linecap="round" marker-end="url(#arrow)" />
+        
+        <text x="590" y="22" class="font-sans body-bold" font-size="21" fill="#0f172a" text-anchor="middle">30% delivery settlement</text>
+      </g>
+    </g>
+
+  </g>
+
+  <!-- ==================== RIGHT COLUMN (RISK MITIGATION TABLE) ==================== -->
+  <g id="right-column" transform="translate(970, 195)">
+    <text x="440" y="32" class="font-sans table-title">Risk Mitigation Table</text>
+    
+    <!-- Outer Table Frame -->
+    <g id="table-container" transform="translate(0, 52)">
+      <rect width="880" height="618" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2.5" />
+      
+      <!-- Header Row -->
+      <path d="M 0 16 Q 0 0 16 0 L 864 0 Q 880 0 880 16 L 880 62 L 0 62 Z" class="table-header-bg" />
+      <text x="140" y="36" class="font-sans th-text">Potential Challenge</text>
+      <text x="490" y="36" class="font-sans th-text">Mitigation Strategy</text>
+      <text x="790" y="36" class="font-sans th-text">Impact Metric</text>
+      
+      <!-- Horizontal Separator Lines -->
+      <line x1="0" y1="201" x2="880" y2="201" stroke="#e2e8f0" stroke-width="2" />
+      <line x1="0" y1="340" x2="880" y2="340" stroke="#e2e8f0" stroke-width="2" />
+      <line x1="0" y1="479" x2="880" y2="479" stroke="#e2e8f0" stroke-width="2" />
+      
+      <!-- Vertical Separator Lines -->
+      <line x1="270" y1="0" x2="270" y2="618" stroke="#cbd5e1" stroke-width="1.5" />
+      <line x1="700" y1="0" x2="700" y2="618" stroke="#cbd5e1" stroke-width="1.5" />
+
+      <!-- ROW 1 -->
+      <g id="table-row-1" transform="translate(0, 62)">
+        <text x="25" y="55" class="font-sans body-bold" font-size="20">Quality Grading</text>
+        <text x="25" y="82" class="font-sans body-bold" font-size="20">Disparity</text>
+        
+        <text x="295" y="55" class="font-sans body-bold" font-size="18">AI Computer Vision photo-grading</text>
+        <text x="295" y="82" class="font-sans body-desc" font-size="16">at village kiosk + 24-hr dispute escrow</text>
+        
+        <!-- Status Pill: Green -->
+        <rect x="715" y="45" width="145" height="50" class="status-pill-green" />
+        <text x="787" y="70" class="font-sans status-text">&lt;1.8% Loss</text>
+      </g>
+
+      <!-- ROW 2 -->
+      <g id="table-row-2" transform="translate(0, 201)">
+        <text x="25" y="55" class="font-sans body-bold" font-size="20">Logistics Deadheads</text>
+        <text x="25" y="82" class="font-sans body-desc" font-size="15">(Empty return freight trips)</text>
+        
+        <text x="295" y="55" class="font-sans body-bold" font-size="18">Dynamic reverse-hauling</text>
+        <text x="295" y="82" class="font-sans body-desc" font-size="16">trucks return carrying subsidized bio-fertilizers</text>
+        
+        <!-- Status Pill: Amber -->
+        <rect x="715" y="45" width="145" height="50" class="status-pill-amber" />
+        <text x="787" y="70" class="font-sans status-text">&gt;82% Fill</text>
+      </g>
+
+      <!-- ROW 3 -->
+      <g id="table-row-3" transform="translate(0, 340)">
+        <text x="25" y="55" class="font-sans body-bold" font-size="20">Spot-Price Volatility</text>
+        <text x="25" y="82" class="font-sans body-desc" font-size="15">(Middlemen price spikes)</text>
+        
+        <text x="295" y="55" class="font-sans body-bold" font-size="18">Fair-Floor Guaranteed Pricing</text>
+        <text x="295" y="82" class="font-sans body-desc" font-size="16">with instant 70% UPI advance payout</text>
+        
+        <!-- Status Pill: Dark Navy -->
+        <rect x="715" y="45" width="145" height="50" class="status-pill-dark" />
+        <text x="787" y="70" class="font-sans status-text">96% Retain</text>
+      </g>
+
+      <!-- ROW 4 -->
+      <g id="table-row-4" transform="translate(0, 479)">
+        <text x="25" y="55" class="font-sans body-bold" font-size="20">Digital Illiteracy</text>
+        <text x="25" y="82" class="font-sans body-desc" font-size="15">&amp; App Hesitation</text>
+        
+        <text x="295" y="55" class="font-sans body-bold" font-size="18">Village Captains / Krishi Mitras</text>
+        <text x="295" y="82" class="font-sans body-desc" font-size="16">₹0.25/kg assisted onboarding incentive</text>
+        
+        <!-- Status Pill: Green -->
+        <rect x="715" y="45" width="145" height="50" class="status-pill-green" />
+        <text x="787" y="70" class="font-sans status-text">100% Access</text>
+      </g>
+
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM RIBBON ==================== -->
+  <g id="bottom-ribbon-bar">
+    <rect x="0" y="960" width="1920" height="120" class="bottom-ribbon" />
+    <text x="960" y="1025" class="font-sans ribbon-text">Breakeven: 12 Tonnes/Day  •  Zero Middlemen  •  100% Rural Inclusion</text>
+  </g>
+
+</svg>
