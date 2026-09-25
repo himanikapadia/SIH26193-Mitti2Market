@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const FarmerDailyHarvestPost: React.FC = () => {
-  const { farmers, selectedFarmerId } = useDemo();
+  const { farmers, selectedFarmerId, setActiveTab } = useDemo();
   const farmer = farmers.find((f) => f.id === selectedFarmerId) || farmers[0];
 
   const [selectedCrop, setSelectedCrop] = useState<string>(farmer.todayCrop || 'Tomato');
@@ -237,6 +237,18 @@ export const FarmerDailyHarvestPost: React.FC = () => {
           <span>Publish Harvest Lot to Grid</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </button>
+
+        {/* 3-Step Interactive Step 2 Transition Button */}
+        <div className="pt-2 border-t border-stone-100">
+          <button
+            type="button"
+            onClick={() => setActiveTab('processor')}
+            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md shadow-amber-600/20 transition cursor-pointer"
+          >
+            <span>Proceed to Step 2: Agro-Processing Factory Intake</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
       </form>
 
       {/* Critical Rural Inclusion Explainer: How 2G Keypad Farmers Register Harvest */}

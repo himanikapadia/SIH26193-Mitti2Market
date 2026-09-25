@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   AlertTriangle,
   ArrowRight,
+  ArrowLeft,
   PackageCheck,
   Thermometer,
   Gauge,
@@ -481,6 +482,29 @@ export const LogisticsPortal: React.FC = () => {
               {/* Transport Specs */}
               <TransportAllocation />
             </div>
+          </div>
+
+          {/* 3-Step Interactive Navigation Footer */}
+          <div className="bg-white rounded-3xl border border-stone-200 p-5 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+            <button
+              onClick={() => setActiveTab('processor')}
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>⬅️ Step 2: Agro-Processing Factory</span>
+            </button>
+
+            <div className="text-center text-xs text-stone-500 font-semibold">
+              Step 3 of 3 • Cold-Chain Logistics &amp; 100% Payout
+            </div>
+
+            <button
+              onClick={() => setActiveTab('farmer')}
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition cursor-pointer"
+            >
+              <span>View Farmer Account Settlement (Step 1) ➔</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </>
       )}

@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   QrCode,
   ArrowRight,
+  ArrowLeft,
   Boxes,
   Layers,
   Leaf,
@@ -24,6 +25,7 @@ import {
   Recycle,
   Zap
 } from 'lucide-react';
+import { useDemo } from '../../context/DemoContext';
 import {
   INITIAL_PROCESSOR_DEMANDS,
   INITIAL_PRODUCE_LIFECYCLE,
@@ -37,6 +39,7 @@ import { MandiCrashHedgingCard } from './MandiCrashHedgingCard';
 import { TripleStreamCircularEconomy } from './TripleStreamCircularEconomy';
 
 export const AgroProcessorPortal: React.FC = () => {
+  const { setActiveTab } = useDemo();
   const [activeSubTab, setActiveSubTab] = useState<'innovations' | 'processors' | 'lifecycle' | 'pulp' | 'calculator'>('innovations');
   const [processorDemands, setProcessorDemands] = useState<FoodProcessorDemand[]>(INITIAL_PROCESSOR_DEMANDS);
   const [lifecycleItems, setLifecycleItems] = useState<ProduceLifecycleItem[]>(INITIAL_PRODUCE_LIFECYCLE);
@@ -88,13 +91,13 @@ export const AgroProcessorPortal: React.FC = () => {
           <div className="space-y-2 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold text-amber-200 uppercase tracking-widest">
               <Factory className="w-3.5 h-3.5" />
-              <span>SIH26193 • Manage &amp; Process Agriculture Produce</span>
+              <span>Step 2 of 3 • Agro-Processing &amp; Food Value Addition</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Produce Lifecycle Management &amp; Agro-Processing Hub
+              Produce Lifecycle Management &amp; Food Processing Hub
             </h1>
             <p className="text-sm sm:text-base text-amber-100 font-medium leading-relaxed">
-              Enhancing Indian Agriculture through 4 Out-of-the-Box Innovations: Optical AI Camera Brix Grading, Decentralized "Pulp-on-Wheels" Solar Processing, Pre-Harvest Mandi Crash Hedging, and Triple-Stream Zero-Waste Monetization.
+              Connecting smallholder farm surplus directly to Food Processing Units (Kissan Puree, Balaji Chips, Dehydration). Preventing post-harvest decay and converting perishable raw produce into shelf-stable value-added food products.
             </p>
           </div>
 
@@ -127,9 +130,9 @@ export const AgroProcessorPortal: React.FC = () => {
             }`}
           >
             <Sparkles className="w-4 h-4 text-amber-600" />
-            <span>4 Unique Innovations</span>
-            <span className="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-black">
-              Hatke Solutions
+            <span>Processing Solutions</span>
+            <span className="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
+              Core Architecture
             </span>
           </button>
 
@@ -716,6 +719,29 @@ export const AgroProcessorPortal: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* 3-Step Interactive Navigation Footer */}
+      <div className="bg-white rounded-3xl border border-stone-200 p-5 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+        <button
+          onClick={() => setActiveTab('farmer')}
+          className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>⬅️ Step 1: Farmer Harvest &amp; Shelf-Life</span>
+        </button>
+
+        <div className="text-center text-xs text-stone-500 font-semibold">
+          Step 2 of 3 • Agro-Processing &amp; Food Value Addition
+        </div>
+
+        <button
+          onClick={() => setActiveTab('logistics')}
+          className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md shadow-amber-600/20 transition cursor-pointer"
+        >
+          <span>Step 3: Dispatch Cold Logistics Truck ➔</span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
+      </div>
     </div>
   );
 };

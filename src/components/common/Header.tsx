@@ -33,35 +33,34 @@ export const Header: React.FC = () => {
 
   const tabs: { id: ModuleTab; label: string; icon: React.ReactNode; badge?: number; color: string }[] = [
     {
-      id: 'processor',
-      label: 'Agro-Processing & Produce Lifecycle',
-      icon: <Factory className="w-4 h-4" />,
-      badge: 4,
-      color: 'amber'
-    },
-    {
       id: 'farmer',
-      label: 'Farmer Dual-Stream & Vernacular Voice',
+      label: '1. 🌾 Farmer Harvest & Shelf-Life',
       icon: <Sprout className="w-4 h-4" />,
       badge: pendingFarmerActions || undefined,
       color: 'emerald'
     },
     {
+      id: 'processor',
+      label: '2. 🏭 Agro-Processing Factory',
+      icon: <Factory className="w-4 h-4" />,
+      color: 'amber'
+    },
+    {
       id: 'logistics',
-      label: 'Cold-Chain & Dual Logistics',
+      label: '3. 🚚 Cold Transport & Payout',
       icon: <Truck className="w-4 h-4" />,
       badge: activePickupStops || undefined,
       color: 'amber'
     },
     {
       id: 'buyer',
-      label: 'Factory & Retail Procurement',
+      label: '🛒 Factory & Retail Demand',
       icon: <ShoppingBag className="w-4 h-4" />,
       color: 'blue'
     },
     {
       id: 'admin',
-      label: 'SIH26193 Architecture & Escrow',
+      label: '⚙️ Architecture & Impact',
       icon: <Layers className="w-4 h-4" />,
       color: 'purple'
     }
