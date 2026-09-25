@@ -1,37 +1,39 @@
 # Mitti2Market 🌾
-> **Small Farms. One Powerful Market.**  
-> *Smart India Hackathon (SIH) Prototype*
+> **Smart Agriculture Produce Lifecycle Management & Agro-Processing Platform**  
+> *Smart India Hackathon 2026 Prototype — Problem Statement ID: SIH26193*
 
-Mitti2Market solves agricultural fragmentation, middleman exploitation, and quality risks through **demand-first procurement pooling**. The platform aggregates smallholder quantities into single, consolidated bulk buyer orders with integrated cold-chain logistics, farm-gate AI quality checks, milestone smart escrow, and automatic standby failover.
+**Problem Statement Title:**  
+Student Innovation-Developing solutions, keeping in mind the need to enhance the primary sector of India - Agriculture and to manage and process our agriculture produce.
 
 ---
 
 ## 🚀 Key Modules & Innovations
 
-### 1. 🛒 Buyer Portal & Demand-First Pooling
-* **Institutional Demand Posting**: Post large requirements (e.g., 1,000 kg Tomato) with early morning delivery targets.
-* **Autonomous Matching Engine**: Discovers nearest certified smallholders within a 15 km cluster, calculating algorithmic match scores based on rating, distance, and lot volume.
-* **Automatic Standby Failover**: If a matched farmer rejects or falls short on quantity, the standby replacement engine dynamically detours and maintains full order fulfillment.
-* **Consolidated Tax Invoice**: Transparent single-billing combining multiple farmers, freight (₹1.0/kg paid by buyer), and platform QA fee (2%).
+### 1. 🏭 Agro-Processing & Food Processing Units (FPU) Hub (NEW)
+* **Direct Farmer-to-Processor Contracts**: Connects rural smallholder clusters with major industrial food processors (puree, ketchup, potato flakes, dehydrated vegetables).
+* **Dual-Stream Smart Dispatch**:
+  * **Stream 1 (Grade A / Table Variety)**: Routed to fresh retail chains & wholesale APMC mandis at premium fresh rates (₹22–₹24.50/kg).
+  * **Stream 2 (Grade B / Overripe / Surplus)**: Automatically diverted to Food Processing Units (₹18.50/kg) for value-added paste, powder, and flakes—eliminating 100% roadside distress dumping.
+* **Value-Addition Yield Calculator**: Simulates how processing 1,000 kg surplus raw produce generates a +224% value jump and creates rural processing employment.
+* **Farm-to-Fork Batch Traceability (QR)**: Verifies harvest date, Brix level, cold-chain temperature logs, and processing batch numbers.
 
-### 2. 🚜 Farmer Module & Inclusive Participation Simulator
-* **Dual Device Simulation**:
-  * **Smartphone App**: Modern push notifications, lot offer reviews, counter-offers, and instant UPI payment receipts.
-  * **Keypad Feature Phone (IVR)**: Authentic rural IVR simulation with zero smartphone dependency.
-    * **Pure Hindi IVR (Zero English loan words)** with Devanagari physical keypad (`१` स्वीकार, `२` अस्वीकार, `३` नया भाव).
-    * **Gujarati IVR** support for regional linguistic inclusivity.
+### 2. ⏳ Produce Lifecycle & Shelf-Life Management
+* **Live Shelf-Life Countdown & Spoilage Radar**: Tracks freshness decay curves for perishables.
+* **Micro-Cold Storage Telemetry**: Real-time monitoring of 12°C Controlled Atmosphere storage environments, extending shelf-life by 3x.
+* **Automated Spoilage Aversion**: Batches with <48 hours shelf-life trigger instant automated re-allocation to nearest processing plants before rotting occurs.
 
-### 3. 🚚 Logistics Control Tower & Farm-Gate QC Station
-* **Optimized Perishable Collection Run**: Multi-stop pickup route scheduled for 4:00 AM peak farm freshness.
-* **Farm-Gate Weighbridge & Agmark QC**:
-  * Input actual weighbridge volume and quality grades (A, B, C, Failed).
-  * **Shortage Detection & Re-Route**: If verified weight is less than promised, the truck dynamically detours to a standby reserve farmer, updating the buyer portal and invoice in real-time.
-  * Quality-based automatic price adjustment.
-* **2-Minute Simulated Transit & Doorstep Delivery**: Countdown timer with fast-forward support transitioning directly to the buyer warehouse receiving dock.
+### 3. 🛒 Fresh Buyer Portal & AI Demand Forecasting
+* **AI Demand & Price Prediction**: 7-day predictive curves forecasting optimal "Best Buy" procurement windows.
+* **Multi-Crop Demand Builder**: Custom multi-crop orders with morning delivery slots (e.g. 7:00 AM) and preferred farm collection zones.
+* **Consolidated Invoice**: Single logistics billing combining multi-farmer consignments with 70% smart escrow security.
 
-### 4. 🔒 Smart Escrow Vault & 2-Phase Milestone Release
-* **Milestone 1 (70% Farm-Gate Disbursal)**: 70% escrow locked on order confirmation and disbursed immediately to farmers upon passing farm-gate weight and QC checks.
-* **Milestone 2 (Remaining 30% Final Settlement)**: Disbursed directly into farmers' Aadhaar UPI/Bank accounts once the buyer inspects and confirms doorstep delivery intake.
+### 4. 🚜 Farmer Module & Inclusive 2G Voice Access
+* **Dual Device Simulation**: Live web portal + offline 2G Voice IVR flow in regional dialects (Hindi & Gujarati) logging harvest in <45 seconds without smartphones.
+* **Fair-Floor Guaranteed Pricing**: Protects smallholders from volatile market crashes.
+
+### 5. 🚚 Logistics Control Tower & Dual-Stream Delivery
+* **Optimized Knapsack Routing**: Solves multi-stop collection itineraries with >92% truck fill-rates.
+* **Reverse-Hauling**: Trucks return carrying subsidized bio-fertilizers and seeds for local FPOs, eliminating deadhead runs.
 
 ---
 
@@ -39,7 +41,7 @@ Mitti2Market solves agricultural fragmentation, middleman exploitation, and qual
 
 * **Frontend Framework**: React 18 + TypeScript + Vite
 * **Styling & UI**: Tailwind CSS + Lucide React Icons
-* **Mapping**: Leaflet + React-Leaflet (OpenStreetMap Tiles)
+* **Mapping & GIS**: Leaflet + React-Leaflet (OpenStreetMap Tiles)
 * **Audio & Synthesis**: Web Audio API Chimes + Web Speech Synthesis (hi-IN / gu-IN)
 * **Build System**: Vite 5
 
@@ -57,5 +59,3 @@ npm run dev
 # 3. Build production bundle
 npm run build
 ```
-
-Open [http://localhost:5173/](http://localhost:5173/) to interact with the live prototype.
