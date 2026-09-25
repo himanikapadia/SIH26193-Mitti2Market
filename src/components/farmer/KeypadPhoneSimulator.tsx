@@ -55,13 +55,13 @@ export const KeypadPhoneSimulator: React.FC = () => {
     if (isGujarati) {
       return {
         greeting: `નમસ્તે ${farmerFirstName}ભાઈ. મિટ્ટી ટુ માર્કેટમાં આપનું સ્વાગત છે.`,
-        body: `આપની પાસે ${allocatedQty} કિલોગ્રામ ${cropNameLocalized} ઉપલબ્ધ છે. થોક વેપારીએ પ્રતિ કિલોગ્રામ ${farmer.offeredRate} રૂપિયાનો ખરીદ ભાવ પ્રસ્તાવ મૂક્યો છે. વાહન સવારે ચાર વાગ્યે આપના ખેતરે આવશે.`,
+        body: `આપની પાસે ${allocatedQty} કિલોગ્રામ ${cropNameLocalized} ઉપલબ્ધ છે. તાજા પાક માટે પ્રતિ કિલો ${farmer.offeredRate} રૂપિયા અને પ્રોસેસિંગ પ્યુરી ફેક્ટરી માટે ૧૮.૫૦ રૂપિયાનો ૧૦૦% ખરીદ ગેરંટી ભાવ છે. વાહન સવારે ચાર વાગ્યે ખેતરે આવશે.`,
         options: `આ ખરીદ ભાવ સ્વીકારવા માટે એક દબાવો. અસ્વીકાર કરવા બે દબાવો. પોતાનો નવો ભાવ આપવા ત્રણ દબાવો.`
       };
     } else {
       return {
         greeting: `नमस्ते ${farmerFirstName} जी। मिट्टी टू मार्केट में आपका स्वागत है।`,
-        body: `आपके पास ${allocatedQty} किलोग्राम ${cropNameLocalized} उपलब्ध है। थोक क्रेता ने प्रति किलोग्राम ${farmer.offeredRate} रुपये का खरीद भाव प्रस्तावित किया है। माल का उठाव सुबह चार बजे आपके खेत से होगा।`,
+        body: `आपके पास ${allocatedQty} किलोग्राम ${cropNameLocalized} उपलब्ध है। ताज़ा फसल के लिए ₹${farmer.offeredRate} और किसान प्यूरी फ़ैक्ट्री के लिए ₹१८.५० का १००% खरीद गारंटी भाव है। वाहन सुबह चार बजे आपके खेत से माल उठाएगा।`,
         options: `यह खरीद भाव स्वीकार करने के लिए एक दबाएं। अस्वीकार करने के लिए दो दबाएं। अपना नया भाव बताने के लिए तीन दबाएं।`
       };
     }
@@ -189,16 +189,16 @@ export const KeypadPhoneSimulator: React.FC = () => {
                 </div>
                 <div className="text-[11px] font-bold text-[#1e2a14]">
                   {isGujarati
-                    ? `જથ્થો: ${allocatedQty} કિલો • ભાવ: ₹${farmer.offeredRate}/કિલો`
-                    : `मात्रा: ${allocatedQty} किग्रा • भाव: ₹${farmer.offeredRate}/किग्रा`}
+                    ? `જથ્થો: ${allocatedQty} કિલો [તાજા + પ્યુરી]`
+                    : `मात्रा: ${allocatedQty} किग्रा [ताज़ा + प्यूरी]`}
                 </div>
                 <div className="text-[10px] text-[#2c3d1b] leading-tight">
                   {isGujarati
-                    ? 'સવારે ૪:૦૦ વાગ્યે વાહન આપના ખેતરે આવશે. ૭૦% રકમ અનામત ખાતામાં સુરક્ષિત છે.'
-                    : 'सुबह ४:०० बजे वाहन आपके खेत पर पहुंचेगा। ७०% अग्रिम राशि सुरक्षित रखी गई है।'}
+                    ? `મંડી ભાવ: ₹${farmer.offeredRate} • પ્યુરી: ₹૧૮.૫૦ • ૦% બગાડ`
+                    : `मंडी भाव: ₹${farmer.offeredRate} • प्यूरी: ₹१८.५० • ०% बर्बादी`}
                 </div>
                 <div className="pt-1 border-t border-[#788864] flex items-center justify-between text-[9px] font-bold text-emerald-950">
-                  <span>{isGujarati ? 'ઓર્ડર સમન્વય પૂર્ણ' : 'आदेश समेकन पूर्ण'}</span>
+                  <span>{isGujarati ? 'દ્વિ-પ્રવાહ ૧૦૦% સ્વીકૃત' : 'द्वि-प्रवाह १००% स्वीकृत'}</span>
                   <span>[૧૦૦% નિશ્ચિત]</span>
                 </div>
               </div>

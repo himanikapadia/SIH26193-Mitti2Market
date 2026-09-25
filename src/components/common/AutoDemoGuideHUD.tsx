@@ -31,6 +31,7 @@ export const AutoDemoGuideHUD: React.FC = () => {
   const tabLabels: Record<string, string> = {
     buyer: 'Buyer Procurement Portal',
     farmer: 'Farmer Device Simulator',
+    processor: 'Agro-Processing & Value Addition',
     logistics: 'Logistics & Farm-Gate QC',
     admin: 'Admin Console & Escrow'
   };

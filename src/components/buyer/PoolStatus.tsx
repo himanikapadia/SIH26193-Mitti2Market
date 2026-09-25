@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDemo } from '../../context/DemoContext';
-import { CheckCircle2, Clock, XCircle, AlertCircle, ArrowUpRight, Users, Sparkles, BrainCircuit } from 'lucide-react';
+import { CheckCircle2, Clock, XCircle, AlertCircle, ArrowUpRight, Users, Sparkles, BrainCircuit, Factory } from 'lucide-react';
 import { ExplainableAIMatchModal } from '../common/ExplainableAIMatchModal';
 
 export const PoolStatus: React.FC = () => {
@@ -173,6 +173,53 @@ export const PoolStatus: React.FC = () => {
               </span>
             );
           })}
+        </div>
+
+        {/* SIH26193: Produce Stream Lifecycle & Value-Addition Routing */}
+        <div className="pt-3 border-t border-stone-200/80 grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
+          <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="font-extrabold text-emerald-950 flex items-center gap-1 text-[11px]">
+                <span>🥬 Stream 1: Fresh Retail</span>
+              </span>
+              <span className="text-[10px] font-mono font-bold text-emerald-800">
+                {Math.round(acceptedKg * 0.65)} kg (65%)
+              </span>
+            </div>
+            <p className="text-[10px] text-emerald-800 leading-tight">
+              Grade A table-ready produce dispatched to Nature Fresh Supermarkets &amp; Mandi @ ₹22.00/kg.
+            </p>
+          </div>
+
+          <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="font-extrabold text-amber-950 flex items-center gap-1 text-[11px]">
+                <Factory className="w-3 h-3 text-amber-700" />
+                <span>Stream 2: Food Processing</span>
+              </span>
+              <span className="text-[10px] font-mono font-bold text-amber-800">
+                {acceptedKg - Math.round(acceptedKg * 0.65)} kg (35%)
+              </span>
+            </div>
+            <p className="text-[10px] text-amber-800 leading-tight">
+              Grade B &amp; ripe surplus pre-contracted to Kissan Mega Food Park (Puree &amp; Pulp) @ ₹18.50/kg.
+            </p>
+          </div>
+
+          <div className="p-2.5 rounded-xl bg-purple-50 border border-purple-200 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="font-extrabold text-purple-950 flex items-center gap-1 text-[11px]">
+                <Sparkles className="w-3 h-3 text-purple-700" />
+                <span>Zero Distress Dumping</span>
+              </span>
+              <span className="text-[10px] font-mono font-bold text-purple-800">
+                100% Monetized
+              </span>
+            </div>
+            <p className="text-[10px] text-purple-800 leading-tight">
+              0.0 kg dumped by roadside. Farmers get guaranteed dual-stream payout without distress sales.
+            </p>
+          </div>
         </div>
       </div>
 

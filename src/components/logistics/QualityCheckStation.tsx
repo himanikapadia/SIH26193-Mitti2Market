@@ -17,7 +17,8 @@ import {
   MapPin,
   RefreshCw,
   QrCode,
-  UserCheck
+  UserCheck,
+  Factory
 } from 'lucide-react';
 import { adjustRateByQuality } from '../../utils/matchingEngine';
 
@@ -274,6 +275,42 @@ export const QualityCheckStation: React.FC<{
               )}
             </div>
           </div>
+        </div>
+
+        {/* Produce Stream Dynamic Dispatch Tag */}
+        <div className={`p-3 rounded-2xl border text-xs flex items-center justify-between ${
+          selectedGrade === 'A'
+            ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
+            : selectedGrade === 'B' || selectedGrade === 'C'
+            ? 'bg-amber-50 border-amber-300 text-amber-950'
+            : 'bg-rose-50 border-rose-300 text-rose-950'
+        }`}>
+          <div className="flex items-center gap-2">
+            <span className={`p-1.5 rounded-xl ${
+              selectedGrade === 'A' ? 'bg-emerald-200 text-emerald-800' : selectedGrade === 'B' || selectedGrade === 'C' ? 'bg-amber-200 text-amber-800' : 'bg-rose-200 text-rose-800'
+            }`}>
+              {selectedGrade === 'A' ? <ShieldCheck className="w-4 h-4" /> : selectedGrade === 'B' || selectedGrade === 'C' ? <Factory className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
+            </span>
+            <div>
+              <span className="font-extrabold block text-[11px]">
+                {selectedGrade === 'A'
+                  ? '🥬 Stream 1: Fresh Wholesale Mandi & Supermarkets'
+                  : selectedGrade === 'B' || selectedGrade === 'C'
+                  ? '🏭 Stream 2: Agro-Processing Factory (Puree & Pulp)'
+                  : '♻️ Stream 3: Village Bio-Gas Digester (Green Bio-Credit)'}
+              </span>
+              <span className="text-[10px] opacity-80">
+                {selectedGrade === 'A'
+                  ? 'Direct retail table supply • 24h freshness window • ₹22.00/kg'
+                  : selectedGrade === 'B' || selectedGrade === 'C'
+                  ? 'Brix 4.8°–5.2° Bx optimal for Kissan Ketchup & Puree • ₹18.00–₹20.00/kg'
+                  : 'Zero road dumping • Methane conversion @ ₹4.50/kg bio-credit'}
+              </span>
+            </div>
+          </div>
+          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-white/80 border border-stone-300 shrink-0">
+            {selectedGrade === 'A' ? 'TABLE GRADE' : selectedGrade === 'B' || selectedGrade === 'C' ? 'FPU STREAM' : 'BIO-GAS'}
+          </span>
         </div>
       </div>
 

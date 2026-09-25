@@ -19,17 +19,25 @@ export const FarmerDailyHarvestPost: React.FC = () => {
   const farmer = farmers.find((f) => f.id === selectedFarmerId) || farmers[0];
 
   const [selectedCrop, setSelectedCrop] = useState<string>(farmer.todayCrop || 'Tomato');
-  const [harvestQty, setHarvestQty] = useState<number>(farmer.todayAvailableQty || 300);
+  const [harvestQty, setHarvestQty] = useState<number>(farmer.todayAvailableQty || 2000);
   const [expectedRate, setExpectedRate] = useState<number>(farmer.offeredRate || 22.0);
   const [readySlot, setReadySlot] = useState<string>('Tomorrow 04:00 AM – 05:30 AM');
-  const [grade, setGrade] = useState<'A' | 'B'>('A');
+  const [grade, setGrade] = useState<'A' | 'B' | 'DUAL'>('DUAL');
+  const [freshPercent, setFreshPercent] = useState<number>(60); // 60% Fresh, 40% Processing
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [showAssistedModal, setShowAssistedModal] = useState<boolean>(false);
+
+  // Split Volumes
+  const freshKg = grade === 'DUAL' ? Math.round(harvestQty * (freshPercent / 100)) : (grade === 'A' ? harvestQty : 0);
+  const processKg = grade === 'DUAL' ? (harvestQty - freshKg) : (grade === 'B' ? harvestQty : 0);
+  const freshPayout = freshKg * expectedRate;
+  const processPayout = processKg * 18.50; // Guaranteed food processor rate
+  const totalPayout = Math.round(freshPayout + processPayout);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3500);
+    setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   return (
@@ -42,26 +50,33 @@ export const FarmerDailyHarvestPost: React.FC = () => {
           </div>
           <div>
             <h3 className="text-sm font-extrabold text-slate-900">
-              Post Daily Harvest Availability
+              Post Harvest &amp; Dual-Stream Allocation
             </h3>
             <p className="text-[11px] text-stone-500">
-              Publish ready-to-harvest crop quota to the Mitti2Market pooling grid
+              Manage produce lifecycle: Allocate between Fresh Table Mandi &amp; Agro-Processing Units
             </p>
           </div>
         </div>
-        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
-          Daily Log
+        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+          SIH26193 Produce Flow
         </span>
       </div>
 
       {isSubmitted && (
-        <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-start gap-2.5 animate-in fade-in">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-          <div>
-            <span className="font-extrabold">Harvest Lot Published Successfully!</span>
-            <p className="text-[11px] text-emerald-800 mt-0.5 leading-relaxed">
-              <strong>{harvestQty} kg {selectedCrop}</strong> at <strong>₹{expectedRate}/kg</strong> has been registered on the Mitti2Market matching grid for buyer pooling.
-            </p>
+        <div className="p-4 rounded-2xl bg-emerald-50 border-2 border-emerald-300 text-xs text-emerald-950 space-y-1.5 animate-in fade-in">
+          <div className="flex items-center gap-2 font-extrabold text-emerald-900">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>Dual-Stream Harvest Registered! (100% Monetized • 0% Dumped)</span>
+          </div>
+          <div className="text-[11px] text-emerald-800 leading-relaxed grid grid-cols-2 gap-2 pt-1 border-t border-emerald-200">
+            <div>
+              <span className="font-bold text-blue-900 block">🟢 Fresh Table (Grade A):</span>
+              <span>{freshKg.toLocaleString()} kg @ ₹{expectedRate}/kg ➔ City Supermarket</span>
+            </div>
+            <div>
+              <span className="font-bold text-amber-900 block">🟠 Agro-Processing (Grade B):</span>
+              <span>{processKg.toLocaleString()} kg @ ₹18.50/kg ➔ Kissan Puree Unit</span>
+            </div>
           </div>
         </div>
       )}
@@ -79,24 +94,21 @@ export const FarmerDailyHarvestPost: React.FC = () => {
               onChange={(e) => setSelectedCrop(e.target.value)}
               className="w-full px-3 py-2 rounded-xl border border-stone-300 bg-white font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 cursor-pointer shadow-2xs"
             >
-              <option value="Tomato">Tomato (Hybrid Fresh)</option>
-              <option value="Potato">Potato (Jyoti Variety)</option>
+              <option value="Tomato">Tomato (Himsona / Hybrid)</option>
+              <option value="Potato">Potato (Chipsona / Jyoti)</option>
               <option value="Onion">Onion (Nasik Red)</option>
-              <option value="Chilli">Green Chilli (G-4)</option>
-              <option value="Okra">Okra / Bhindi (Fresh Green)</option>
-              <option value="Cauliflower">Cauliflower (Snowball)</option>
             </select>
           </div>
 
           {/* Harvest Quantity */}
           <div>
             <label className="block font-bold text-slate-700 mb-1">
-              Estimated Harvest (kg)
+              Total Harvest Quantity (kg)
             </label>
             <input
               type="number"
               min="50"
-              step="25"
+              step="50"
               value={harvestQty}
               onChange={(e) => setHarvestQty(Number(e.target.value))}
               className="w-full px-3 py-2 rounded-xl border border-stone-300 bg-white font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 shadow-2xs"
@@ -105,28 +117,80 @@ export const FarmerDailyHarvestPost: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {/* Expected Farm-Gate Rate */}
-          <div>
-            <label className="block font-bold text-slate-700 mb-1">
-              Expected Farm-Gate Rate (₹/kg)
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-2 font-mono font-bold text-stone-400">₹</span>
-              <input
-                type="number"
-                min="5"
-                step="0.5"
-                value={expectedRate}
-                onChange={(e) => setExpectedRate(Number(e.target.value))}
-                className="w-full pl-7 pr-3 py-2 rounded-xl border border-stone-300 bg-white font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 shadow-2xs"
-                required
-              />
-            </div>
-            <span className="text-[10px] text-stone-400 mt-0.5 block">Zero commission deducted</span>
+        {/* Dual-Stream Allocation Mode Selector */}
+        <div className="p-3.5 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-2.5">
+          <div className="flex items-center justify-between">
+            <span className="font-extrabold text-slate-900 text-xs">
+              Produce Stream &amp; Processing Allocation:
+            </span>
+            <span className="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md">
+              Zero Waste Route
+            </span>
           </div>
 
-          {/* Ready for Pickup Slot */}
+          <div className="grid grid-cols-3 gap-2">
+            <button
+              type="button"
+              onClick={() => setGrade('DUAL')}
+              className={`p-2 rounded-xl text-left border text-[11px] font-bold transition cursor-pointer ${
+                grade === 'DUAL'
+                  ? 'bg-amber-600 text-white border-amber-700 shadow-xs'
+                  : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
+              }`}
+            >
+              <div>✨ Dual-Stream Split</div>
+              <div className="text-[9px] opacity-85 font-normal">Fresh Table + Ketchup FPU</div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setGrade('A')}
+              className={`p-2 rounded-xl text-left border text-[11px] font-bold transition cursor-pointer ${
+                grade === 'A'
+                  ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                  : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
+              }`}
+            >
+              <div>🟢 100% Fresh (Grade A)</div>
+              <div className="text-[9px] opacity-85 font-normal">Strict Table Retail Only</div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setGrade('B')}
+              className={`p-2 rounded-xl text-left border text-[11px] font-bold transition cursor-pointer ${
+                grade === 'B'
+                  ? 'bg-blue-600 text-white border-blue-700 shadow-xs'
+                  : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
+              }`}
+            >
+              <div>🏭 100% Processing</div>
+              <div className="text-[9px] opacity-85 font-normal">Puree/Chips Guarantee</div>
+            </button>
+          </div>
+
+          {/* Dual Split Slider */}
+          {grade === 'DUAL' && (
+            <div className="space-y-1.5 pt-2 border-t border-amber-200/80">
+              <div className="flex justify-between text-[11px] font-bold text-stone-700">
+                <span className="text-emerald-800">Fresh Table: {freshPercent}% ({freshKg} kg)</span>
+                <span className="text-amber-800">Food Processor: {100 - freshPercent}% ({processKg} kg)</span>
+              </div>
+              <input
+                type="range"
+                min="20"
+                max="80"
+                step="10"
+                value={freshPercent}
+                onChange={(e) => setFreshPercent(Number(e.target.value))}
+                className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-amber-600"
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Shelf-Life & Ready Slot */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="block font-bold text-slate-700 mb-1">
               Harvest Readiness Slot
@@ -136,50 +200,32 @@ export const FarmerDailyHarvestPost: React.FC = () => {
               onChange={(e) => setReadySlot(e.target.value)}
               className="w-full px-3 py-2 rounded-xl border border-stone-300 bg-white font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 cursor-pointer shadow-2xs"
             >
-              <option value="Tomorrow 04:00 AM – 05:30 AM">Tomorrow 04:00 AM – 05:30 AM (Morning)</option>
-              <option value="Tomorrow 05:30 AM – 07:00 AM">Tomorrow 05:30 AM – 07:00 AM (Sunrise)</option>
-              <option value="Tomorrow 04:00 PM – 06:00 PM">Tomorrow 04:00 PM – 06:00 PM (Evening)</option>
-              <option value="Day After Tomorrow 04:00 AM">Day After Tomorrow 04:00 AM</option>
+              <option value="Tomorrow 04:00 AM – 05:30 AM">Tomorrow 04:00 AM – 05:30 AM (Peak Freshness)</option>
+              <option value="Tomorrow 05:30 AM – 07:00 AM">Tomorrow 05:30 AM – 07:00 AM</option>
+              <option value="Tomorrow 04:00 PM – 06:00 PM">Tomorrow 04:00 PM – 06:00 PM</option>
             </select>
+          </div>
+
+          <div className="p-3 bg-stone-50 rounded-xl border border-stone-200 flex flex-col justify-center">
+            <span className="text-[10px] text-stone-500 font-bold uppercase">Estimated Shelf-Life Decay:</span>
+            <div className="text-xs font-bold text-slate-900 mt-0.5">
+              Grade A: 5 Days | Grade B: 36h (Safe in Puree)
+            </div>
           </div>
         </div>
 
-        {/* Quality Declaration & Estimated Value */}
-        <div className="p-3 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-between">
-          <div className="space-y-0.5">
-            <span className="text-[10px] uppercase font-bold text-stone-400">Declared Quality Grade</span>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setGrade('A')}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer border ${
-                  grade === 'A'
-                    ? 'bg-emerald-600 text-white border-emerald-700 shadow-2xs'
-                    : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-100'
-                }`}
-              >
-                Grade A (Export / Retail)
-              </button>
-              <button
-                type="button"
-                onClick={() => setGrade('B')}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer border ${
-                  grade === 'B'
-                    ? 'bg-emerald-600 text-white border-emerald-700 shadow-2xs'
-                    : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-100'
-                }`}
-              >
-                Grade B (Standard Market)
-              </button>
+        {/* Payout Summary */}
+        <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-between">
+          <div>
+            <div className="text-[10px] text-stone-500 uppercase font-bold">Guaranteed Total Payout</div>
+            <div className="text-lg font-extrabold font-mono text-emerald-800">
+              ₹{totalPayout.toLocaleString('en-IN')}
             </div>
+            <div className="text-[10px] text-stone-400">Fresh @ ₹{expectedRate} + Processing @ ₹18.50</div>
           </div>
-
-          <div className="text-right">
-            <div className="text-[10px] text-stone-400 uppercase font-bold">Estimated Farm Payout</div>
-            <div className="text-base font-extrabold font-mono text-emerald-800">
-              ₹{Math.round(harvestQty * expectedRate).toLocaleString('en-IN')}
-            </div>
-          </div>
+          <span className="px-3 py-1.5 bg-emerald-100 text-emerald-900 text-xs font-bold rounded-xl border border-emerald-300">
+            100% Sold • Zero Loss
+          </span>
         </div>
 
         {/* Submit Button */}

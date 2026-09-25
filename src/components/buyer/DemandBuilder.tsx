@@ -133,6 +133,16 @@ export const DemandBuilder: React.FC = () => {
         <button
           type="button"
           onClick={() => {
+            setSelectedCrops([{ cropId: 'crop-tomato', quantity: 1500 }]);
+            setBuyerName('Kissan Mega Food Park (Processing Unit)');
+          }}
+          className="px-2.5 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 font-bold text-[11px] transition shadow-2xs cursor-pointer flex items-center gap-1"
+        >
+          <span>🏭 1,500 kg Processing Tomatoes (Kissan FPU)</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => {
             setSelectedCrops([
               { cropId: 'crop-tomato', quantity: 700 },
               { cropId: 'crop-chilli', quantity: 300 }
@@ -161,16 +171,43 @@ export const DemandBuilder: React.FC = () => {
           </div>
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1">
-              Buyer Category / Facility Type
+              Procurement Category / Destination Stream
             </label>
-            <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold text-slate-800 flex items-center justify-between">
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>Wholesaler / Retail Supermarket Chain</span>
+            <select
+              value={buyerName.includes('Kissan') || buyerName.includes('Balaji') || buyerName.includes('Processing') ? 'FPU' : 'RETAIL'}
+              onChange={(e) => {
+                if (e.target.value === 'FPU') {
+                  setBuyerName('Kissan Mega Food Park (Processing Unit)');
+                } else {
+                  setBuyerName('Nature Fresh Supermarkets Ltd');
+                }
+              }}
+              className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 cursor-pointer shadow-2xs"
+            >
+              <option value="RETAIL">🥬 Fresh Retail / Supermarket (Grade A Table Stock)</option>
+              <option value="FPU">🏭 Food Processing Unit - FPU (Puree/Ketchup/Chips)</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Agro-Processing Quality Specification Pill */}
+        <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-2">
+            <span className="p-1.5 rounded-xl bg-amber-100 text-amber-800">
+              <Layers className="w-4 h-4" />
+            </span>
+            <div>
+              <span className="font-extrabold text-amber-950 block">Produce Lifecycle Intake Stream:</span>
+              <span className="text-[11px] text-amber-800">
+                {buyerName.includes('Kissan') || buyerName.includes('Processing')
+                  ? 'Accepts Grade B & Overripe batches (Brix ≥ 4.5° Bx) • Zero Farm Distress Waste'
+                  : 'Requires Grade A Fresh harvest (Firmness ≥ 4.5 kg/cm², Brix ~ 4.2° Bx) • 24h Table Life'}
               </span>
-              <span className="text-[10px] text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded font-bold">Verified B2B</span>
             </div>
           </div>
+          <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-white border border-amber-300 text-amber-900 shrink-0">
+            {buyerName.includes('Kissan') || buyerName.includes('Processing') ? 'FPU Industrial Intake' : 'Fresh Retail Intake'}
+          </span>
         </div>
 
         {/* Selected Crops Cards */}

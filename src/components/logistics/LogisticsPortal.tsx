@@ -19,7 +19,8 @@ import {
   Navigation,
   UserCheck,
   Building2,
-  ChevronRight
+  ChevronRight,
+  Factory
 } from 'lucide-react';
 
 export const LogisticsPortal: React.FC = () => {
@@ -108,12 +109,12 @@ export const LogisticsPortal: React.FC = () => {
           <div className="p-3 rounded-2xl bg-stone-900/90 border border-stone-800">
             <span className="text-[10px] text-stone-400 uppercase font-mono font-bold block flex items-center gap-1">
               <Thermometer className="w-3 h-3 text-cyan-400" />
-              Cold Bay Temp
+              Dual-Chamber Reefer
             </span>
             <div className="font-extrabold text-cyan-300 font-mono text-sm mt-0.5">
-              {fleet.reeferTempC || 17.8}°C <span className="text-[10px] text-emerald-400 font-normal">(Optimal)</span>
+              {fleet.reeferTempC || 14.8}°C <span className="text-[10px] text-emerald-400 font-normal">(Zone 1: Fresh 12°C | Zone 2: FPU 16°C)</span>
             </div>
-            <div className="text-[11px] text-stone-400">Humidity: {fleet.reeferHumidityPercent || 88}% RH</div>
+            <div className="text-[11px] text-stone-400">Humidity: {fleet.reeferHumidityPercent || 88}% RH • CA Active</div>
           </div>
 
           {/* Telemetry 3: Speed & Leg */}
@@ -132,12 +133,12 @@ export const LogisticsPortal: React.FC = () => {
           <div className="p-3 rounded-2xl bg-stone-900/90 border border-stone-800">
             <span className="text-[10px] text-stone-400 uppercase font-mono font-bold block flex items-center gap-1">
               <Clock className="w-3 h-3 text-emerald-400" />
-              Doorstep Target
+              Dual Drop Target
             </span>
             <div className="font-extrabold text-emerald-400 font-mono text-sm mt-0.5">
               {fleet.estimatedDeliveryTime || '06:30 AM'}
             </div>
-            <div className="text-[11px] text-stone-400">Surat APMC Bulk Bay 4</div>
+            <div className="text-[11px] text-stone-400 truncate">1. APMC Bay 4 • 2. Kissan FPU</div>
           </div>
         </div>
       </div>
@@ -234,8 +235,8 @@ export const LogisticsPortal: React.FC = () => {
                 );
               })}
 
-              {/* Final Doorstep Delivery Node */}
-              <div className="shrink-0">
+              {/* Final Doorstep Delivery Nodes: Dual Destination Split */}
+              <div className="flex items-center gap-2 shrink-0">
                 <div
                   className={`flex items-center gap-2 px-3 py-2 rounded-2xl border text-xs ${
                     allStopsDone
@@ -245,8 +246,24 @@ export const LogisticsPortal: React.FC = () => {
                 >
                   <PackageCheck className="w-4 h-4 text-emerald-700" />
                   <div>
-                    <div className="font-extrabold text-[11px]">Doorstep Intake</div>
-                    <div className="text-[10px] font-mono">Surat APMC Bay 4</div>
+                    <div className="font-extrabold text-[11px]">Drop 1: Fresh Wholesale</div>
+                    <div className="text-[10px] font-mono">Surat APMC Bay 4 (65%)</div>
+                  </div>
+                </div>
+
+                <ChevronRight className="w-4 h-4 text-stone-300 shrink-0" />
+
+                <div
+                  className={`flex items-center gap-2 px-3 py-2 rounded-2xl border text-xs ${
+                    allStopsDone
+                      ? 'bg-amber-100 border-amber-400 text-amber-950 font-bold'
+                      : 'bg-stone-50 border-stone-200 text-stone-400'
+                  }`}
+                >
+                  <Factory className="w-4 h-4 text-amber-700" />
+                  <div>
+                    <div className="font-extrabold text-[11px]">Drop 2: Agro-Processing</div>
+                    <div className="text-[10px] font-mono">Kissan FPU SEZ (35%)</div>
                   </div>
                 </div>
               </div>
